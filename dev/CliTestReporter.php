@@ -1,5 +1,12 @@
 <?php
 /**
+ * CliTestReporter.php
+ *
+ * @package framework
+ * @subpackage testing
+ */
+
+/**
  * Test reporter optimised for CLI (ie, plain-text) output
  * 
  * @package framework
@@ -9,6 +16,8 @@ class CliTestReporter extends SapphireTestReporter {
 
 	/**
 	 * Display error bar if it exists
+	 * 
+	 * @return void
 	 */
 	public function writeResults() {
 		$passCount = 0;
@@ -62,6 +71,13 @@ class CliTestReporter extends SapphireTestReporter {
 		echo "\n";
 	}
 	
+	/**
+	 * End the execution of a test
+	 *
+	 * @param PHPUnit_Framework_Test $test
+	 * @param unknown $time
+	 * @return void
+	 */
 	public function endTest( PHPUnit_Framework_Test $test, $time) {
 		// Status indicator, a la PHPUnit
 		switch($this->currentTest['status']) {
@@ -80,7 +96,12 @@ class CliTestReporter extends SapphireTestReporter {
 		parent::endTest($test, $time);
 	}
 	
-	
+	/**
+	 * Write the results of a test
+	 *
+	 * @param PHPUnit_Framework_Test $test
+	 * @return void
+	 */
 	protected function writeTest($test) {
 		if ($test['status'] != TEST_SUCCESS) {
 			$filteredTrace = array();
