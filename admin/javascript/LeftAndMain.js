@@ -374,12 +374,19 @@ jQuery.noConflict();
 				// case we'll ignore the response
 				if(!data) return;
 
+				// Support a full reload
+				if(xhr.getResponseHeader('X-Reload') && xhr.getResponseHeader('X-ControllerURL')) {
+					document.location.href = xhr.getResponseHeader('X-ControllerURL');
+					return;
+				}
+
 				// Update title
 				var title = xhr.getResponseHeader('X-Title');
 				if(title) document.title = title;
 
 				var newFragments = {}, newContentEls;
-				if(xhr.getResponseHeader('Content-Type') == 'text/json') {
+				// If content type is text/json (ignoring charset and other parameters)
+				if(xhr.getResponseHeader('Content-Type').match(/^text\/json[ \t]*;?/i)) {
 					newFragments = data;
 				} else {
 					// Fall back to replacing the content fragment if HTML is returned
@@ -933,7 +940,16 @@ jQuery.noConflict();
 							return false;
 						}
 					},
-					selected: (selectedTab.index() != -1) ? selectedTab.index() : 0
+					selected: (selectedTab.index() != -1) ? selectedTab.index() : 0,
+					show: function(e, ui) {
+						// Usability: Hide actions for "readonly" tabs (which don't contain any editable fields)
+						var actions = $(this).closest('form').find('.Actions');
+						if($(ui.tab).closest('li').hasClass('readonly')) {
+							actions.fadeOut();
+						} else {
+							actions.show();
+						}
+					}
 				});
 			},
 		
@@ -945,8 +961,8 @@ jQuery.noConflict();
 			 */
 			rewriteHashlinks: function() {
 				$(this).find('ul a').each(function() {
-					var href = $(this).attr('href').replace(/.*(#.*)/, '$1');
-					if(href) $(this).attr('href', href);
+					var href = $(this).attr('href');
+					if(href) $(this).attr('href', href.replace(/.*(#.*)/, '$1'));
 				});
 			}
 		});

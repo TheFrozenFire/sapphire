@@ -54,20 +54,7 @@
 				$('body').bind('click', _clickTestFn);
 				
 				var panel = this.getPanel(), tree = this.find('.tree-holder');
-				
-				// set the panel to the bottom of the field. Takes into account the
-				// mouse scroll position.
-				// @todo - support for opening above content
-				var scrollTop = 0;
-				
-				this.parents().each(function(i, e) {
-					if($(e).scrollTop() > 0) {
-						scrollTop = $(e).scrollTop();
-						return;
-					}
-				});
-
-				var top = this.position().top + this.height() + scrollTop;
+				var top = this.position().top + this.height();
 				
 				panel.css('top', top);
 				panel.css('width', this.width());
@@ -161,7 +148,7 @@
 							.jstree(self.getTreeConfig())
 							.bind('select_node.jstree', function(e, data) {
 								var node = data.rslt.obj, id = $(node).data('id');
-								if(!firstLoad && !self.getValue() == id) {
+								if(!firstLoad && !self.getValue() === id) {
 									// Value is already selected, unselect it (for lack of a better UI to do this)
 									self.data('metadata', null);
 									self.setTitle(null);
