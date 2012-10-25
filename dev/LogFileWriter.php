@@ -1,4 +1,10 @@
 <?php
+/**
+ * LogFileWriter.php
+ *
+ * @package framework
+ * @subpackage dev
+ */
 require_once 'Zend/Log/Writer/Abstract.php';
 
 /**
@@ -37,13 +43,30 @@ class SS_LogFileWriter extends Zend_Log_Writer_Abstract {
 	 * @var string
 	 */
 	protected $extraHeaders;
-
+	
+	/**
+	 * __construct
+	 *
+	 * @param string $path
+	 * @param int $messageType
+	 * @param string $extraHeaders
+	 * @return void
+	 */
 	public function __construct($path, $messageType = 3, $extraHeaders = '') {
 		$this->path = $path;
 		$this->messageType = $messageType;
 		$this->extraHeaders = $extraHeaders;
 	}
 	
+	/**
+	 * factory
+	 *
+	 * @static
+	 * @param string $path
+	 * @param int $messageType
+	 * @param string $extraHeaders
+	 * @return void
+	 */
 	public static function factory($path, $messageType = 3, $extraHeaders = '') {
 		return new SS_LogFileWriter($path, $messageType, $extraHeaders);
 	}
@@ -51,6 +74,9 @@ class SS_LogFileWriter extends Zend_Log_Writer_Abstract {
 	/**
 	 * Write the log message to the file path set
 	 * in this writer.
+	 * 
+	 * @param unknown $event
+	 * @return void
 	 */
 	public function _write($event) {
 		if(!$this->_formatter) {
