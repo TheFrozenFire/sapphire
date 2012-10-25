@@ -1,4 +1,11 @@
 <?php
+/**
+ * ZendLog.php
+ *
+ * @package framework
+ * @subpackage dev
+ */
+
 require_once 'Zend/Log.php';
 
 /**
