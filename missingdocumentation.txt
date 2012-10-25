@@ -1,16 +1,3 @@
-framework/dev/CliDebugView.php
-  No page-level DocBlock was found in file dev/CliDebugView.php
-  Argument $httpRequest is missing from the Docblock of writeHeader()
-  Argument $httpRequest is missing from the Docblock of writeError()
-  Argument $errno is missing from the Docblock of writeError()
-  Argument $errstr is missing from the Docblock of writeError()
-  Argument $errfile is missing from the Docblock of writeError()
-  Argument $errline is missing from the Docblock of writeError()
-  Argument $errcontext is missing from the Docblock of writeError()
-  Argument $errline is missing from the Docblock of writeSourceFragment()
-  Argument $trace is missing from the Docblock of writeTrace()
-  Name of argument $subtitle does not match with the DocBlock's name $title in writeInfo()
-  Argument $description is missing from the Docblock of writeInfo()
 framework/dev/TestSession.php
   No page-level DocBlock was found in file dev/TestSession.php
   No DocBlock was found for property $session
