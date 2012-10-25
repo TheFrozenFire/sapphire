@@ -1,4 +1,10 @@
 <?php
+/**
+ * FunctionalTest.php
+ *
+ * @package framework
+ * @subpackage testing
+ */
 
 /**
  * SilverStripe-specific testing object designed to support functional testing of your web app.  It simulates get/post
@@ -35,6 +41,9 @@ class FunctionalTest extends SapphireTest {
 	 */
 	static $use_draft_site = false;
 	
+	/**
+	 * @ignore
+	 */
 	protected $mainSession = null;
 	
 	/**
@@ -55,7 +64,12 @@ class FunctionalTest extends SapphireTest {
 	public function session() {
 		return $this->mainSession->session();
 	}
-
+	
+	/**
+	 * Set up the prerequisites of each test
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		// Skip calling FunctionalTest directly.
 		if(get_class($this) == "FunctionalTest") $this->skipTest = true;
@@ -71,13 +85,18 @@ class FunctionalTest extends SapphireTest {
 			$this->useDraftSite();
 		}
         
-        // Unprotect the site, tests are running with the assumption it's off. They will enable it on a case-by-case
-        // basis.
-        BasicAuth::protect_entire_site(false);
+		// Unprotect the site, tests are running with the assumption it's off. They will enable it on a case-by-case
+		// basis.
+		BasicAuth::protect_entire_site(false);
 		
 		SecurityToken::disable();
 	}
-
+	
+	/**
+	 * Clean up the prerequisites of each test
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		SecurityToken::enable();
 		
@@ -88,6 +107,10 @@ class FunctionalTest extends SapphireTest {
 	/**
 	 * Submit a get request
 	 * @uses Director::test()
+	 * @param string $url
+	 * @param unknown $session
+	 * @param unknown $headers
+	 * @param unknown $cookies
 	 */
 	public function get($url, $session = null, $headers = null, $cookies = null) {
 		$this->cssParser = null;
@@ -101,6 +124,12 @@ class FunctionalTest extends SapphireTest {
 	/**
 	 * Submit a post request
 	 * @uses Director::test()
+	 * @param string $url
+	 * @param unknown $data
+	 * @param unknown $headers
+	 * @param unknown $session
+	 * @param unknown $body
+	 * @param unknown $cookies
 	 */
 	public function post($url, $data, $headers = null, $session = null, $body = null, $cookies = null) {
 		$this->cssParser = null;
@@ -330,6 +359,8 @@ class FunctionalTest extends SapphireTest {
 	/**
 	 * Return a static variable from this class.
 	 * Gets around PHP's lack of late static binding.
+	 * 
+	 * @param string $varName
 	 */
 	public function stat($varName) {
 		$className = get_class($this);
