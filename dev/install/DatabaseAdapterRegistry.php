@@ -1,4 +1,9 @@
 <?php
+/**
+ * DatabaseAdapterRegistry.php
+ *
+ * @package framework
+ */
 
 /**
  * This class keeps track of the available database adapters
@@ -9,7 +14,12 @@
  * @author Tom Rix
  */
 class DatabaseAdapterRegistry {
-	
+	/**
+	 * Default configuration fields for database adapters
+	 * 
+	 * @static
+	 * @var array
+	 */
 	static $default_fields = array(
 		'server' => array(
 			'title' => 'Database server', 
@@ -65,10 +75,23 @@ class DatabaseAdapterRegistry {
 		self::$adapters[$config['class']] = $config;
 	}
 	
+	/**
+	 * unregister
+	 *
+	 * @static
+	 * @param string $class
+	 * @return void
+	 */
 	public static function unregister($class) {
 		if(isset($adapters[$class])) unset($adapters[$class]);
 	}
 	
+	/**
+	 * autodiscover
+	 *
+	 * @static
+	 * @return void
+	 */
 	public static function autodiscover() {
 		foreach(glob(dirname(__FILE__) . '/../../../*', GLOB_ONLYDIR) as $directory) {
 			if(file_exists($directory . '/_register_database.php')) {
@@ -77,6 +100,12 @@ class DatabaseAdapterRegistry {
 		}
 	}
 	
+	/**
+	 * get_adapters
+	 *
+	 * @static
+	 * @return array
+	 */
 	public static function get_adapters() {
 		return self::$adapters;
 	}
