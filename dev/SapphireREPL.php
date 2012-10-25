@@ -1,40 +1,51 @@
 <?php
-
-/* Don't actually define these, since it'd clutter up the namespace.
-define('1',E_ERROR);
-define('2',E_WARNING);
-define('4',E_PARSE);
-define('8',E_NOTICE);
-define('16',E_CORE_ERROR);
-define('32',E_CORE_WARNING);
-define('64',E_COMPILE_ERROR);
-define('128',E_COMPILE_WARNING);
-define('256',E_USER_ERROR);
-define('512',E_USER_WARNING);
-define('1024',E_USER_NOTICE);
-define('2048',E_STRICT);
-define('4096',E_RECOVERABLE_ERROR);
-define('8192',E_DEPRECATED);
-define('16384',E_USER_DEPRECATED);
-define('30719',E_ALL);
-*/
 /**
+ * SapphireREPL.php
+ *
+ * @package framework
+ * @subpackage dev
+ */
+
+/**
+ * Read-Eval-Print-Loop controller for CLI
+ * 
  * @package framework
  * @subpackage dev
  */
 class SapphireREPL extends Controller {
 	
+	/**
+	 * Allowed controller actions
+	 * 
+	 * @static
+	 * @var array
+	 */
 	static $allowed_actions = array(
 		'index'
 	);
-
+	
+	/**
+	 * error_handler
+	 *
+	 * @param int $errno
+	 * @param string $errstr
+	 * @param string $errfile
+	 * @param string $errline
+	 * @param unknown $errctx
+	 * @return void
+	 */
 	public function error_handler( $errno, $errstr, $errfile, $errline, $errctx ) {
 		// Ignore unless important error
 		if ( ($errno & ~( 2048 | 8192 | 16384 )) == 0 ) return ;
 		// Otherwise throw exception to handle in REPL loop
 		throw new Exception(sprintf("%s:%d\r\n%s", $errfile, $errline, $errstr));
 	}
-
+	
+	/**
+	 * index
+	 *
+	 * @return void
+	 */
 	public function index() {
 		if(!Director::is_cli()) {
 			return "The SilverStripe Interactive Command-line doesn't work in a web browser."

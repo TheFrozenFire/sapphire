@@ -1,9 +1,3 @@
-framework/dev/SapphireREPL.php
-  No page-level DocBlock was found in file dev/SapphireREPL.php
-  No short description for class \SapphireREPL
-  No DocBlock was found for property $allowed_actions
-  No DocBlock was found for method error_handler()
-  No DocBlock was found for method index()
 framework/dev/SapphireTest.php
   No page-level DocBlock was found in file dev/SapphireTest.php
   No DocBlock was found for property $originalMailer
