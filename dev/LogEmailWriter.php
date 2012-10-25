@@ -1,4 +1,10 @@
 <?php
+/**
+ * LogEmailWriter.php
+ *
+ * @package framework
+ * @subpackage dev
+ */
 require_once 'Zend/Log/Writer/Abstract.php';
 
 /**
@@ -15,24 +21,58 @@ class SS_LogEmailWriter extends Zend_Log_Writer_Abstract {
 	 * @var $send_from Email address to send log information from
 	 */
 	protected static $send_from = 'errors@silverstripe.com';
-
+	
+	/**
+	 * @ignore
+	 */
 	protected $emailAddress;
-
+	
+	/**
+	 * @ignore
+	 */
 	protected $customSmtpServer;
-
+	
+	/**
+	 * __construct
+	 *
+	 * @param string $emailAddress
+	 * @param string $customSmtpServer = false
+	 * @return void
+	 */
 	public function __construct($emailAddress, $customSmtpServer = false) {
 		$this->emailAddress = $emailAddress;
 		$this->customSmtpServer = $customSmtpServer;
 	}
 	
+	/**
+	 * factory
+	 *
+	 * @static
+	 * @param string $emailAddress
+	 * @param string $customSmtpServer = false
+	 * @return void
+	 */
 	public static function factory($emailAddress, $customSmtpServer = false) {
 		return new SS_LogEmailWriter($emailAddress, $customSmtpServer);
 	}
-
+	
+	/**
+	 * set_send_from
+	 *
+	 * @static
+	 * @param string $address
+	 * @return void
+	 */
 	public static function set_send_from($address) {
 		self::$send_from = $address;
 	}
-
+	
+	/**
+	 * get_send_from
+	 *
+	 * @static
+	 * @return string
+	 */
 	public static function get_send_from() {
 		return self::$send_from;
 	}
@@ -40,6 +80,9 @@ class SS_LogEmailWriter extends Zend_Log_Writer_Abstract {
 	/**
 	 * Send an email to the email address set in
 	 * this writer.
+	 * 
+	 * @param unknown $event
+	 * @return void
 	 */
 	public function _write($event) {
 		// If no formatter set up, use the default
