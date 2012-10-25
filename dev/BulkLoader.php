@@ -1,5 +1,12 @@
 <?php
 /**
+ * BulkLoader.php
+ *
+ * @package framework
+ * @subpackage bulkloading
+ */
+
+/**
  * A base for bulk loaders of content into the SilverStripe database.
  * Bulk loaders give SilverStripe authors the ability to do large-scale uploads into their SilverStripe databases.
  * 
@@ -123,15 +130,22 @@ abstract class BulkLoader extends ViewableData {
 	 */
 	public $deleteExistingRecords = false;
 	
+	/**
+	 * __construct
+	 *
+	 * @param string $objectClass
+	 * @return void
+	 */
 	public function __construct($objectClass) {
 		$this->objectClass = $objectClass;
 		parent::__construct();
 	}
 	
-	/*
+	/**
 	 * Load the given file via {@link self::processAll()} and {@link self::processRecord()}.
 	 * Optionally truncates (clear) the table before it imports. 
-	 *  
+	 * 
+	 * @param string $filepath
 	 * @return BulkLoader_Result See {@link self::processAll()}
 	 */
 	public function load($filepath) {
@@ -237,7 +251,7 @@ abstract class BulkLoader extends ViewableData {
 	 * so this is mainly a customization method.
 	 *
 	 * @param mixed $val
-	 * @param string $field Name of the field as specified in the array-values for {@link self::$columnMap}.
+	 * @param string $fieldName Name of the field as specified in the array-values for {@link self::$columnMap}.
 	 * @return boolean
 	 */
 	protected function isNullValue($val, $fieldName = null) {
@@ -302,6 +316,9 @@ class BulkLoader_Result extends Object {
 	}
 	
 	/**
+	 * Returns the count of all objects which were
+	 * created.
+	 * 
 	 * @return int
 	 */
 	public function CreatedCount() {
@@ -309,6 +326,9 @@ class BulkLoader_Result extends Object {
 	}
 	
 	/**
+	 * Returns the count of all objects which were
+	 * updated.
+	 * 
 	 * @return int
 	 */
 	public function UpdatedCount() {
@@ -316,6 +336,9 @@ class BulkLoader_Result extends Object {
 	}
 	
 	/**
+	 * Returns the count of all objects which were
+	 * deleted.
+	 * 
 	 * @return int
 	 */
 	public function DeletedCount() {
@@ -333,6 +356,9 @@ class BulkLoader_Result extends Object {
 	}
 	
 	/**
+	 * Returns all updated objects. Each object might
+	 * contain specific importer feedback in the "_BulkLoaderMessage" property.
+	 * 
 	 * @return ArrayList
 	 */
 	public function Updated() {
@@ -340,6 +366,9 @@ class BulkLoader_Result extends Object {
 	}
 	
 	/**
+	 * Returns all deleted objects. Each object might
+	 * contain specific importer feedback in the "_BulkLoaderMessage" property.
+	 * 
 	 * @return ArrayList
 	 */
 	public function Deleted() {
@@ -356,6 +385,8 @@ class BulkLoader_Result extends Object {
 	}
 	
 	/**
+	 * Adds an object to the list of created objects.
+	 * 
 	 * @param $obj DataObject
 	 * @param $message string
 	 */
@@ -369,6 +400,8 @@ class BulkLoader_Result extends Object {
 	}
 	
 	/**
+	 * Adds an object to the list of updated objects.
+	 * 
 	 * @param $obj DataObject
 	 * @param $message string
 	 */
@@ -382,6 +415,8 @@ class BulkLoader_Result extends Object {
 	}
 	
 	/**
+	 * Adds an object to the list of deleted objects.
+	 * 
 	 * @param $obj DataObject
 	 * @param $message string
 	 */
@@ -395,6 +430,8 @@ class BulkLoader_Result extends Object {
 	}
 	
 	/**
+	 * Returns a list of objects given a map of IDs and ClassNames
+	 * 
 	 * @param $arr Array containing ID and ClassName maps
 	 * @return ArrayList
 	 */
