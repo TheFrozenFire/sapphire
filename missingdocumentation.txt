@@ -1,15 +1,3 @@
-framework/dev/SilverStripeListener.php
-  No page-level DocBlock was found in file dev/SilverStripeListener.php
-  No DocBlock was found for \SilverStripeListener
-  No DocBlock was found for method isValidClass()
-  No DocBlock was found for method startTestSuite()
-  No DocBlock was found for method endTestSuite()
-  No DocBlock was found for method startTest()
-  No DocBlock was found for method endTest()
-  No DocBlock was found for method addError()
-  No DocBlock was found for method addFailure()
-  No DocBlock was found for method addIncompleteTest()
-  No DocBlock was found for method addSkippedTest()
 framework/dev/SapphireREPL.php
   No page-level DocBlock was found in file dev/SapphireREPL.php
   No short description for class \SapphireREPL
