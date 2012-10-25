@@ -1,5 +1,12 @@
 <?php
 /**
+ * MigrationTask.php
+ *
+ * @package framework
+ * @subpackage dev 
+ */
+
+/**
  * A migration task is a build task that is reversible.
  * 
  * <b>Creating Migration Tasks</b>
@@ -49,11 +56,26 @@
  * @subpackage dev
  */
 class MigrationTask extends BuildTask {
-	
+	/**
+	 * Title of task
+	 * 
+	 * @var string
+	 */
 	protected $title = "Database Migrations";
 	
+	/**
+	 * Description of task
+	 * 
+	 * @var string
+	 */
 	protected $description = "Provide atomic database changes (not implemented yet)";
 	
+	/**
+	 * run
+	 *
+	 * @param SS_HTTPRequest $request
+	 * @return void
+	 */
 	public function run($request) {
 		if ($request->param('Direction') == 'down') {
 			$this->down();
@@ -62,8 +84,18 @@ class MigrationTask extends BuildTask {
 		}
 	}
 	
+	/**
+	 * Migrate data from upstream source to current database
+	 *
+	 * @return void
+	 */
 	public function up() {}
 	
+	/**
+	 * Migrate data from current database to upstream source
+	 *
+	 * @return void
+	 */
 	public function down() {}
 	
 }
