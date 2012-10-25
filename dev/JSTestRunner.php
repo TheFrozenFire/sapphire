@@ -1,5 +1,12 @@
 <?php
 /**
+ * JSTestRunner.php
+ *
+ * @package framework
+ * @subpackage testing
+ */
+
+/**
  * Controller that executes QUnit tests via jQuery.
  * Finds all htm/html files located in <yourmodule>/javascript/tests
  * and includes them as iFrames.
@@ -37,11 +44,23 @@ class JSTestRunner extends Controller {
 	/** @ignore */
 	private static $default_reporter;
 	
+	/**
+	 * Controller URL handlers
+	 * 
+	 * @static
+	 * @var array
+	 */
 	static $url_handlers = array(
 		'' => 'browse',
 		'$TestCase' => 'only',
 	);
 	
+	/**
+	 * Allowed controller actions
+	 * 
+	 * @static
+	 * @var array
+	 */
 	static $allowed_actions = array(
 		'index',
 		'all',
@@ -59,6 +78,11 @@ class JSTestRunner extends Controller {
 		self::$default_reporter = $reporter;
 	}
 	
+	/**
+	 * init
+	 *
+	 * @return void
+	 */
 	public function init() {
 		parent::init();
 		
@@ -70,12 +94,19 @@ class JSTestRunner extends Controller {
 		if (!self::$default_reporter) self::set_reporter('DebugView');
 	}
 	
+	/**
+	 * Link
+	 *
+	 * @return string
+	 */
 	public function Link() {
 		return Controller::join_links(Director::absoluteBaseURL(), 'dev/jstests/');
 	}
 	
 	/**
 	 * Run all test classes
+	 * 
+	 * @return void
 	 */
 	public function all() {
 		$this->runTests(array_keys($this->getAllTestFiles()));
@@ -83,6 +114,8 @@ class JSTestRunner extends Controller {
 	
 	/**
 	 * Browse all enabled test cases in the environment
+	 * 
+	 * @return void
 	 */
 	public function browse() {
 		self::$default_reporter->writeHeader();
@@ -102,6 +135,9 @@ class JSTestRunner extends Controller {
 		
 	/**
 	 * Run only a single test class
+	 * 
+	 * @param SS_HTTPRequest $request
+	 * @return void
 	 */
 	public function only($request) {
 		$test = $request->param('TestCase');
@@ -118,7 +154,13 @@ class JSTestRunner extends Controller {
 			$this->runTests(array($test));
 		}
 	}
-
+	
+	/**
+	 * Run list of tests
+	 *
+	 * @param array $tests
+	 * @return void
+	 */
 	public function runTests($tests) {
 		$this->setUp();
 
@@ -137,12 +179,27 @@ class JSTestRunner extends Controller {
 		$this->tearDown();
 	}
 	
+	/**
+	 * Set up the prerequisites of each test
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 	}
 	
+	/**
+	 * Clean up the prerequisites of each test
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 	}
 	
+	/**
+	 * Get all files for the tests
+	 *
+	 * @return array
+	 */
 	protected function getAllTestFiles() {
 		$testFiles = array();
 		
@@ -178,6 +235,7 @@ class JSTestRunner extends Controller {
 	/**
 	 * Returns the URL for a test case file.
 	 * 
+	 * @param string $testName
 	 * @return string
 	 */
 	protected function urlForTestCase($testName) {
