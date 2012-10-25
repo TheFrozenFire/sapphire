@@ -1,5 +1,11 @@
 <?php
 /**
+ * DatabaseConfigurationHelper.php
+ *
+ * @package framework
+ */
+
+/**
  * Interface for database helper classes.
  * @package framework
  */
