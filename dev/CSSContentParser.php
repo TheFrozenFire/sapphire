@@ -1,4 +1,10 @@
 <?php
+/**
+ * CSSContentParser.php
+ *
+ * @package framework
+ * @subpackage core
+ */
 
 /**
  * CSSContentParser enables parsing & assertion running of HTML content via CSS selectors.
@@ -19,8 +25,17 @@
  * @subpackage core
  */
 class CSSContentParser extends Object {
+	/**
+	 * @ignore
+	 */
 	protected $simpleXML = null;
 	
+	/**
+	 * __construct
+	 *
+	 * @param string $content
+	 * @return void
+	 */
 	public function __construct($content) {
 		if(extension_loaded('tidy')) {
 			// using the tiny php extension
