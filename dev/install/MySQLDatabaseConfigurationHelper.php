@@ -1,5 +1,12 @@
 <?php
 /**
+ * MySQLDatabaseConfigurationHelper.php
+ *
+ * @package framework
+ * @subpackage model
+ */
+
+/**
  * This is a helper class for the SS installer.
  *
  * It does all the specific checking for MySQLDatabase
@@ -46,6 +53,7 @@ class MySQLDatabaseConfigurationHelper implements DatabaseConfigurationHelper {
 	/**
 	 * Get the database version for the MySQL connection, given the
 	 * database parameters.
+	 * @param array $databaseConfig Associative array of db configuration, e.g. "server", "username" etc
 	 * @return mixed string Version number as string | boolean FALSE on failure
 	 */
 	public function getDatabaseVersion($databaseConfig) {
